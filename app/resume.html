@@ -56,7 +56,9 @@
         }
         .contact-info {
             display: flex;
-            justify-content: space-between;
+            padding: 0 100px;
+            justify-content: space-evenly;
+            flex-wrap: wrap;
             align-items: center;
             line-height: 24px;
             margin-bottom: 12px;
@@ -74,6 +76,12 @@
         .footer {
             margin: 32px 0;
         }
+
+        @media only screen and (max-width: 768px) {
+            .contact-info {
+                padding: 0;
+            }
+          }
     </style>
 
 </head>
