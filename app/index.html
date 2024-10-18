@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeff Santos CV</title>
+    <style>
+        html {
+            overflow: hidden;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f4f4f4;
+            box-sizing: border-box;
+            height: 100vh;
+            margin: 0;
+        }
+
+        iframe {
+            height: calc(100vh - 100px);
+            width: calc(100vw - 100px);
+            border: none;
+            overflow: auto;
+            padding: 100px;
+        }
+
+        /* Media query for smaller devices (like mobile phones) */
+        @media (max-width: 768px) {
+            iframe {
+                height: calc(100vh - 50px);
+                width: calc(100vw - 50px);
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <iframe src="resume.html"></iframe>
+</body>
+</html>
