@@ -29,9 +29,8 @@
             background-color: #333;
             color: #fff;
             text-align: center;
-            padding: 16px 0;
+            padding: 24px;
             font-size: 24px;
-            font-family: 'Arial', sans-serif;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
@@ -70,36 +69,31 @@
             border: 2px solid #333;
             justify-content: center;
             display: inline-flex;
+            margin: 5px;
         }
 
-        .resume-button {
+        .button-primary {
             background-color: #333;
             color: #fff;
-            margin-bottom: 12px;
-            transition: background-color 0.3s ease;
         }
 
-        .resume-button:hover {
+        .button-primary:hover {
             background-color: #fff;
             color: #333;
         }
 
-        .portfolio-container {
-            text-align: center;
-        }
-
-        .portfolio-button {
-            margin: 5px;
+        .button-secondary {
             background-color: #fff;
             color: #333;
         }
 
-        .portfolio-button:hover {
+        .button-secondary:hover {
             background-color: #333;
             color: #fff;
         }
 
         .footer {
+            padding: 24px 12px 12px 12px;
             text-align: center;
             font-size: 18px;
             color: #666;
@@ -149,15 +143,16 @@
             color: white;
         }
 
-        .iframe__desktop {
+        .resume-desktop {
             display: block;
         }
 
-        .iframe__mobile {
+        .resume-mobile {
             display: none;
             background-color: #fff;
             padding: 24px;
             margin: 24px;
+            border-radius: 4px;
         }
 
         @media (max-width: 1000px) {
@@ -174,31 +169,30 @@
                 height: 90%;
             }
 
-            .iframe__desktop {
+            .resume-desktop {
                 display: none;
             }
 
-            .iframe__mobile {
+            .resume-mobile {
                 display: block;
             }
         }
     </style>
 </head>
 <body>
-    <header>JMS Apps - Professional Software Solutions</header>
+    <header>JMS Apps - Innovative Software Solutions</header>
 
     <section class="container">
-        <h1>Welcome</h1>
         <p>I specialize in developing innovative software solutions. Explore my portfolio and learn how I can help bring your projects to life with cutting-edge technology and expertise.</p>
 
         <!-- Portfolio Section -->
-        <div class="portfolio-container">
-            <a class="button portfolio-button" href="https://familyalbums.ca" target="_blank">Family Albums</a>
-            <a class="button portfolio-button" href="https://admin.realtyhost.ca" target="_blank">Realty Host</a>
-            <a class="button portfolio-button" href="https://markbotelho.com" target="_blank">Mark Botelho</a>
+        <div >
+            <a class="button button-secondary" href="https://familyalbums.ca" target="_blank">Family Albums</a>
+            <a class="button button-secondary" href="https://admin.realtyhost.ca" target="_blank">Realty Host</a>
+            <a class="button button-secondary" href="https://markbotelho.com" target="_blank">Mark Botelho</a>
         </div>
 
-        <button class="button resume-button" onclick="openModal()">View Resume</button>
+        <button class="button button-primary" onclick="openModal()">View Resume</button>
 
         <!-- Contact Information -->
         <div class="footer">
@@ -213,8 +207,8 @@
     <!-- Fullscreen Modal -->
     <div class="modal" id="resumeModal">
         <button class="close-modal" onclick="closeModal()">x</button>
-        <iframe class="iframe__desktop" src="jeff_santos_resume_2024.pdf"></iframe>
-        <iframe class="iframe__mobile" src="resume.html"></iframe>
+        <iframe class="resume-desktop" src="jeff_santos_resume_2024.pdf"></iframe>
+        <iframe class="resume-mobile" src="resume.html"></iframe>
     </div>
 
     <script>
