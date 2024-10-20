@@ -27,7 +27,7 @@
         header {
             width: 100%;
             background-color: #333;
-            color: white;
+            color: #fff;
             text-align: center;
             padding: 16px 0;
             font-size: 24px;
@@ -58,42 +58,45 @@
         }
 
         .button {
-            padding: 10px 20px;
-            background-color: #333;
-            color: white;
             border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
             text-transform: uppercase;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            min-width: 200px;
+            text-decoration: none;
+            border: 2px solid #333;
+            justify-content: center;
+            display: inline-flex;
+        }
+
+        .resume-button {
+            background-color: #333;
+            color: #fff;
             margin-bottom: 12px;
             transition: background-color 0.3s ease;
         }
 
-        .button:hover {
-            background-color: #555;
+        .resume-button:hover {
+            background-color: #fff;
+            color: #333;
         }
 
-        .portfolio {
+        .portfolio-container {
             text-align: center;
         }
 
         .portfolio-button {
-            display: inline-flex;
-            padding: 10px 20px;
             margin: 5px;
-            background-color: white;
+            background-color: #fff;
             color: #333;
-            border: 2px solid #333;
-            font-size: 16px;
-            text-decoration: none;
-            text-transform: uppercase;
-            transition: background-color 0.3s ease, color 0.3s ease;
-            cursor: pointer;
         }
 
         .portfolio-button:hover {
             background-color: #333;
-            color: white;
+            color: #fff;
         }
 
         .footer {
@@ -108,7 +111,6 @@
             display: inline;
         }
 
-        /* Modal styles */
         .modal {
             display: none;
             position: fixed;
@@ -132,12 +134,13 @@
             position: absolute;
             top: 20px;
             right: 20px;
-            background-color: white;
+            background-color: #fff;
             color: black;
             padding: 10px 15px;
             cursor: pointer;
             font-size: 18px;
-            border: none;
+            border: 1px solid;
+            border-radius: 4px;
             transition: background-color 0.3s ease;
         }
 
@@ -146,8 +149,18 @@
             color: white;
         }
 
-        /* Media query for smaller devices (like mobile phones) */
-        @media (max-width: 768px) {
+        .iframe__desktop {
+            display: block;
+        }
+
+        .iframe__mobile {
+            display: none;
+            background-color: #fff;
+            padding: 24px;
+            margin: 24px;
+        }
+
+        @media (max-width: 1000px) {
             .container h1 {
                 font-size: 28px;
             }
@@ -160,6 +173,14 @@
                 width: 95%;
                 height: 90%;
             }
+
+            .iframe__desktop {
+                display: none;
+            }
+
+            .iframe__mobile {
+                display: block;
+            }
         }
     </style>
 </head>
@@ -167,16 +188,17 @@
     <header>JMS Apps - Professional Software Solutions</header>
 
     <section class="container">
-        <h1>Welcome to JMS Apps</h1>
+        <h1>Welcome</h1>
         <p>I specialize in developing innovative software solutions. Explore my portfolio and learn how I can help bring your projects to life with cutting-edge technology and expertise.</p>
 
         <!-- Portfolio Section -->
-        <div class="portfolio">
-            <a href="https://familyalbums.ca" target="_blank" class="portfolio-button">Family Albums</a>
-            <a href="https://markbotelho.com" target="_blank" class="portfolio-button">Mark Botelho</a>
+        <div class="portfolio-container">
+            <a class="button portfolio-button" href="https://familyalbums.ca" target="_blank">Family Albums</a>
+            <a class="button portfolio-button" href="https://admin.realtyhost.ca" target="_blank">Realty Host</a>
+            <a class="button portfolio-button" href="https://markbotelho.com" target="_blank">Mark Botelho</a>
         </div>
 
-        <button class="button" onclick="openModal()">View Resume</button>
+        <button class="button resume-button" onclick="openModal()">View Resume</button>
 
         <!-- Contact Information -->
         <div class="footer">
@@ -190,8 +212,9 @@
 
     <!-- Fullscreen Modal -->
     <div class="modal" id="resumeModal">
-        <button class="close-modal" onclick="closeModal()">X</button>
-        <iframe src="jeff_santos_resume_2024.pdf"></iframe>
+        <button class="close-modal" onclick="closeModal()">x</button>
+        <iframe class="iframe__desktop" src="jeff_santos_resume_2024.pdf"></iframe>
+        <iframe class="iframe__mobile" src="resume.html"></iframe>
     </div>
 
     <script>
