@@ -1,51 +1,84 @@
-# Resume to PDF Generator
+# JMS Apps
 
-This simple Python script generates a PDF from an HTML resume using WeasyPrint. The goal of this tool is to provide an easy way to store and manage resumes while the full website is being developed. It can also be used as a template for anyone looking to build their own resume generation system.
+This repository is for my personal business website, but I also have a LaTeX-based PDF generator that you can use.
 
 ## How It Works
 
-1. The script loads environment variables for file paths using `dotenv`.
-2. It takes an HTML file representing your resume and converts it into a PDF using WeasyPrint.
-3. The final PDF file is stored in the specified directory.
+This project includes a LaTeX template (`app/resume/jakes-template.tex`) that can generate a professional PDF resume. It uses **pdflatex** or **latexmk** to compile the `.tex` file into a `.pdf`.
+
+These instructions are for **macOS**, but the required software is also available for **Windows** and **Linux**.
 
 ## Installation
 
-1. Clone the repository:
-
+1. **Clone the repository:**
    ```bash
    git clone https://github.com/jmsapps/jmsapps-ui.git
    cd jmsapps-ui
-
    ```
-2. Install the dependencies:
 
+2. **Ensure LaTeX is Installed**
+
+   **macOS:**
+   Install **MacTeX** from [tug.org/mactex](https://tug.org/mactex/). Then, ensure it’s in your system’s PATH:
    ```bash
-   pip install -r requirements.txt
+   export PATH="/Library/TeX/texbin:$PATH"
    ```
-3. Set up your `.env` file with the following environment variables:
+   Verify installation by running:
+   ```bash
+   pdflatex --version
+   latexmk -v
+   ```
+   Restart VSCode if necessary.
 
+   **Windows:**
+   Install **MiKTeX** from [miktex.org/download](https://miktex.org/download), then use the `pdflatex.exe` and `latexmk.exe` commands from the MiKTeX console or command prompt.
+
+   **Linux:**
+   Install **TeX Live**:
+   ```bash
+   sudo apt install texlive-full   # Debian/Ubuntu
+   sudo dnf install texlive        # Fedora
+   sudo pacman -S texlive-most     # Arch
    ```
-   BASE_FILEPATH=<path_to_your_files>
-   RESUME_FILENAME=<your_resume_html_filename>
-   PDF_FILENAME=<output_pdf_filename>
+   Verify installation:
+   ```bash
+   pdflatex --version
+   latexmk -v
    ```
 
 ## Usage
 
-1. Place your HTML resume in the specified `BASE_FILEPATH`.
-2. Run the script:
-   ```bash
-   python app/jmsapps-ui.py
-   ```
-3. The generated PDF will be saved at the same `BASE_FILEPATH` with the filename you specified.
+### **Generating a PDF Resume**
+To compile the LaTeX file and generate a PDF:
+
+```bash
+pdflatex -output-directory=app/resume app/resume/jakes-template.tex
+```
+
+Alternatively, use `latexmk` for automatic dependency handling:
+
+```bash
+latexmk -pdf -output-directory=app/resume app/resume/jakes-template.tex
+```
+
+### **Cleaning Up Auxiliary Files**
+To remove extra files like `.aux`, `.log`, and `.out` after compilation:
+
+```bash
+latexmk -c -output-directory=app/resume
+```
 
 ## Customization
 
-You can use the HTML template of the resume in this project as a base and customize it to fit your own style or needs. This makes it flexible for anyone looking to develop their own resume builder.
+Edit `app/resume/jakes-template.tex` to modify the resume content. You can customize:
+- **Your name and contact info**
+- **Education, experience, and projects**
+- **Skills and technical details**
 
 ## Contributions
 
-Feel free to contribute to use it as a foundation to create your own resume generation system.
+Feel free to fork this repo and modify it to fit your needs. You can use this as a base for your own resume generation system.
+Please also note that I have only run this on Mac, so if you have improvements for the Linux or Windows instructions, please contribute.
 
 ## License
 

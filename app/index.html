@@ -192,7 +192,7 @@
             <a class="button button-secondary" href="https://markbotelho.com" target="_blank">Mark Botelho</a>
         </div>
 
-        <button class="button button-primary" onclick="openModal()">View Resume</button>
+        <button class="button button-primary" onclick="openResume()">View Resume</button>
 
         <!-- Contact Information -->
         <div class="footer">
@@ -205,19 +205,15 @@
     </section>
 
     <!-- Fullscreen Modal -->
-    <div class="modal" id="resumeModal">
+    <!-- <div class="modal" id="resumeModal">
         <button class="close-modal" onclick="closeModal()">x</button>
         <iframe class="resume-desktop" src="jeff_santos_resume_2025.pdf"></iframe>
         <iframe class="resume-mobile" src="resume.html"></iframe>
-    </div>
+    </div> -->
 
     <script>
-        function openModal() {
-            document.getElementById("resumeModal").style.display = "flex";
-        }
-
-        function closeModal() {
-            document.getElementById("resumeModal").style.display = "none";
+        function openResume() {
+            window.open("resume/jeff_santos_resume.pdf", "_blank");
         }
     </script>
 </body>
