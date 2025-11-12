@@ -1,210 +1,213 @@
 when defined(js):
   import "ntml"
+  import "times"
 
-  styled Page = d:
-    """
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      background: var(--primary);
-      color: var(--black);
-      font-family: 'Inter', 'Roboto', sans-serif;
-    """
+  import "types"
+  import "styles"
 
-  styled HeaderBar = header:
-    """
-      text-align: center;
-      padding: 32px 16px 16px;
-      color: var(--white);
-      background: var(--primary);
-      box-shadow: var(--shadow);
-    """
+  import "../../components/slider/index"
 
-  styled HeroSection = section:
-    """
-      max-width: 900px;
-      width: 100%;
-      align-self: center;
-      padding: 48px 24px 32px;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    """
+  import "../../global/theme/index"
 
-  styled HeroTitle = h1:
-    """
-      font-size: clamp(2rem, 4vw, 3rem);
-      line-height: 1.2;
-      color: var(--foreground);
-      margin: 0;
-    """
-
-  styled HeroLead = p:
-    """
-      font-size: 1.2rem;
-      line-height: 1.7;
-      color: var(--foreground);
-      margin: 0 auto;
-    """
-
-  styled PortfolioGrid = d:
-    """
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      justify-content: center;
-      margin: 12px 0 8px;
-    """
-
-  styled PortfolioLink = a:
-    """
-      border: 2px solid var(--primary);
-      color: var(--primary);
-      text-decoration: none;
-      padding: 12px 18px;
-      border-radius: 100px;
-      font-weight: 600;
-      transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
-      min-width: 180px;
-      text-align: center;
-      display: inline-flex;
-      justify-content: center;
-      &:hover {
-        background: var(--primary);
-        color: var(--white);
-        transform: translateY(-2px);
-      }
-    """
-
-  styled PrimaryAction = a:
-    """
-      background: var(--primary);
-      color: var(--white);
-      border-radius: 999px;
-      padding: 14px 28px;
-      font-weight: 600;
-      text-decoration: none;
-      margin: 0 8px;
-      display: inline-flex;
-      justify-content: center;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      box-shadow: var(--shadow;
-      &:hover {
-        transform: translateY(-2px);
-        box-shadow: var(--shadow;
-      }
-    """
-
-  styled SecondaryAction = a:
-    """
-      border: 2px solid var(--secondary);
-      color: var(--secondary);
-      border-radius: 999px;
-      padding: 12px 24px;
-      font-weight: 600;
-      text-decoration: none;
-      margin: 0 8px;
-      display: inline-flex;
-      justify-content: center;
-      transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
-      &:hover {
-        background: var(--secondary);
-        color: var(--black);
-        transform: translateY(-2px);
-      }
-    """
-
-  styled ButtonRow = d:
-    """
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 12px;
-      margin: 12px 0 20px;
-    """
-
-  styled ContactCard = d:
-    """
-      width: 100%;
-      background: var(--white);
-      border-radius: 18px;
-      padding: 24px;
-      box-shadow: var(--shadow);
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    """
-
-  styled ContactRow = d:
-    """
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 16px;
-      font-size: 1rem;
-    """
-
-  styled ContactLink = a:
-    """
-      color: var(--primary);
-      text-decoration: none;
-      font-weight: 600;
-    """
-
-  styled ContactText = p:
-    """
-      margin: 0;
-      color: var(--grey);
-    """
+  import "../../utils/animations/index.nim"
 
   proc Home*(): Node =
+    let colorMode = signal(false)
+
+    let focusAreas = @[
+      FocusArea(
+        title: "Product leadership",
+        copy: "Facilitate discovery, shape calm delivery rituals, and keep the roadmap honest while teams scale.",
+        tags: @["Discovery sprints", "Roadmaps", "Stakeholders"]
+      ),
+      FocusArea(
+        title: "Frontend platforms",
+        copy: "Architect resilient web apps with NTML, TypeScript, and Nim that stay fast as features grow.",
+        tags: @["Design systems", "Performance", "Accessibility"]
+      ),
+      FocusArea(
+        title: "Cloud-native systems",
+        copy: "Compose APIs, workers, and data flows on AWS & Fly.io with pragmatic monitoring baked in.",
+        tags: @["AWS", "Fly.io", "Observability"]
+      ),
+      FocusArea(
+        title: "Team mentorship",
+        copy: "Coach engineers and founders through technical decisions, hiring, and calm growth.",
+        tags: @["Hiring", "Mentoring", "Playbooks"]
+      )
+    ]
+
+    let caseStudies = @[
+      CaseStudy(
+        title: "Family Albums",
+        summary: "Privacy-first photo archives for families, built with Nim + NTML and deployed globally.",
+        impact: "3k families onboarded during the first six weeks.",
+        link: "https://familyalbums.ca",
+        tag: "Consumer"
+      ),
+      CaseStudy(
+        title: "Realty Host",
+        summary: "Operations dashboard for boutique brokerages with workflow automation and reporting.",
+        impact: "Cut onboarding from 10 days to 3 with guided flows.",
+        link: "https://admin.realtyhost.ca/login",
+        tag: "B2B SaaS"
+      ),
+      CaseStudy(
+        title: "MarkBotelho.com",
+        summary: "High-converting marketing site with custom CMS hooks and lightning-fast pages.",
+        impact: "25% lift in qualified leads after launch.",
+        link: "https://markbotelho.com",
+        tag: "Brand"
+      )
+    ]
+
+    let metrics = @[
+      (value: "12+", label: "Years leading software initiatives"),
+      (value: "18", label: "Products shipped to production"),
+      (value: "4", label: "Distributed teams mentored")
+    ]
+
+    let heroHighlights = @[
+      "Blueprint MVPs into launch-ready releases without chaos.",
+      "Pair architecture + implementation so decisions stay grounded.",
+      "Coach teams to own outcomes with clear rituals and feedback."
+    ]
+
+    scheduleRevealSetup()
+
     Page:
-      HeaderBar:
-        h2: "JMS Apps — Innovative Software Solutions"
+      NavBar:
+        BrandButton(`type`="button", onClick = proc (e: Event) = navigate("/")):
+          "JMS APPS"
+
+        NavLinks:
+          NavButton(`type`="button", onClick = proc (e: Event) = navigate("/")):
+            "Home"
+
+          NavButton(`type`="button", onClick = proc (e: Event) = navigate("/ntml")):
+            "NTML Docs"
+
+          NavToggleWrap:
+            Slider(
+              state = colorMode,
+              labelText = "Toggle color mode",
+              colors = SliderColors(
+                track: "rgba(255, 255, 255, 0.25)",
+                thumb: "#ffffff",
+                thumbActive: "#7cc0ff"
+              ),
+              leftSlot = block:
+                sliderSlot:
+                  span: "☀️",
+              rightSlot = block:
+                sliderSlot:
+                  span: "🌙",
+              onToggle = proc (next: bool) =
+                if next:
+                  setStyledTheme(DarkTheme)
+                else:
+                  setStyledTheme(LightTheme)
+            )
+
+          NavResume(href = "assets/jeff_santos_resume.pdf", target = "_blank", rel = "noreferrer noopener"):
+            "Download Resume"
 
       HeroSection:
-        HeroTitle:
-          "Building reliable, human-centered software for modern teams."
+        HeroContent:
+          HeroBadge:
+            "Fractional CTO & Principal Engineer"
 
-        HeroLead:
-          "From prototypes to production systems, I craft performant apps, lead teams, and obsess over the details that move a product from idea to impact."
+          HeroTitle:
+            "I lead teams that ship thoughtful software without burning out."
 
-        PortfolioGrid:
-          PortfolioLink(href = "https://familyalbums.ca", target = "_blank"):
-            "Family Albums"
-          PortfolioLink(href = "https://admin.realtyhost.ca", target = "_blank"):
-            "Realty Host"
-          PortfolioLink(href = "https://markbotelho.com", target = "_blank"):
-            "Mark Botelho"
+          HeroLead:
+            "Partner with a builder who can zoom from roadmap to release. I combine Nim, NTML, and battle-tested delivery habits to take products from brief to launch with clarity."
 
-        ButtonRow:
-          PrimaryAction(href = "assets/jeff_santos_resume.pdf", target = "_blank", rel = "noreferrer noopener"):
-            "View Resume"
-          SecondaryAction(href = "mailto:jmsapps@outlook.com"):
-            "Email me"
+          HeroActions:
+            PrimaryAction(href = "assets/jeff_santos_resume.pdf", target = "_blank", rel = "noreferrer noopener"):
+              "Download Resume"
 
-        ContactCard:
-          ContactRow:
-            ContactLink(href = "mailto:jmsapps@outlook.com"):
-              "jmsapps@outlook.com"
-            ContactText:
-              "|"
-            ContactLink(href = "https://linkedin.com/in/jmsapps", target = "_blank", rel = "noreferrer noopener"):
-              "LinkedIn"
-            ContactText:
-              "|"
-            ContactLink(href = "https://github.com/jmsapps", target = "_blank", rel = "noreferrer noopener"):
-              "GitHub"
-          ContactRow:
-            ContactText:
-              "416-346-6069"
-            ContactText:
-              "•"
-            ContactText:
-              "Toronto, ON"
+            SecondaryAction(`type`="button", onClick = proc (e: Event) = navigate("/ntml")):
+              "Explore NTML Docs"
+
+        HeroPanel:
+          HeroPanelHeading:
+            "Currently helping teams"
+
+          HeroPanelList:
+            for highlight in heroHighlights:
+              HeroPanelItem:
+                highlight
+
+      MetricsRow(`data-reveal`="metrics", `data-reveal-delay`="120ms"):
+        for metric in metrics:
+          MetricCard:
+            MetricValue:
+              metric.value
+            MetricLabel:
+              metric.label
+
+      SectionBlock(`data-reveal`="focus"):
+        SectionHeader:
+          SectionEyebrow:
+            "Practice areas"
+          SectionTitle:
+            "Strategy + engineering support that meets your runway."
+          SectionCopy:
+            "Bring me in to guide discovery, architect platforms, or coach the team that will own it. I embed with founders, PMs, and engineers to keep the work steady."
+
+        FocusGrid:
+          for idx, area in focusAreas:
+            let delay = $(idx * 90) & "ms"
+            FocusCard(`data-reveal`="focus-card", `data-reveal-delay`=delay):
+              FocusTitle:
+                area.title
+              FocusCopy:
+                area.copy
+              TagList:
+                for tag in area.tags:
+                  TagChip:
+                    tag
+
+      if false:
+        SectionBlock(`data-reveal`="work"):
+          SectionHeader:
+            SectionEyebrow:
+              "Selected work"
+            SectionTitle:
+              "Launch partners who trusted the process."
+            SectionCopy:
+              "A sample of recent engagements blending architecture, delivery, and mentorship."
+
+          WorkGrid:
+            for idx, study in caseStudies:
+              let delay = $(idx * 120 + 120) & "ms"
+              WorkCard(`data-reveal`="case-study", `data-reveal-delay`=delay):
+                WorkTag:
+                  study.tag
+                WorkTitle:
+                  study.title
+                WorkSummary:
+                  study.summary
+                WorkMeta:
+                  "Result: " & study.impact
+                WorkLink(href = study.link, target = "_blank", rel = "noreferrer noopener"):
+                  "Visit project ->"
+
+      ContactPanel(`data-reveal`="contact"):
+        ContactHeading:
+          "Ready when you are."
+        ContactCopy:
+          "Tell me about the release you're aiming for—I'll send back a lightweight plan and timelines the same week."
+        ContactActions:
+          PrimaryAction(href = "mailto:jmsapps@outlook.com"):
+            "Book a call"
+          SecondaryAction(`type`="button", onClick = proc (e: Event) = navigate("/ntml")):
+            "Read NTML Docs"
+        ContactCopy:
+          "Prefer async? Email "
+          ContactLink(href = "mailto:jmsapps@outlook.com"):
+            "jmsapps@outlook.com"
+
+      Footer:
+        "© "; now().year ; " JMS Apps · Building calm, resilient software."

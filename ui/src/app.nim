@@ -14,13 +14,12 @@ when defined(js):
     let router: Router = router()
     let location: Signal[string] = router.location
 
-    setStyledTheme(LightTheme)
+    setStyledTheme(DarkTheme)
 
-    fragment:
-      Routes(location):
-        Route(path="/", component=Home)
-        Route(path="/ntml", component=NtmlDocs)
-        Route(path="*", component=NotFound)
+    Routes(location):
+      Route(path="/", component=Home)
+      Route(path="/ntml", component=NtmlDocs)
+      Route(path="*", component=NotFound)
 
   try:
     render(App())
