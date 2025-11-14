@@ -21,7 +21,7 @@ when defined(js):
     slot()
 
   proc Slider*(
-    state: Signal[bool];
+    checked: Signal[bool]
     onToggle: proc (next: bool) = nil;
     labelText: string = "Toggle option";
     leftSlot: SliderSlotRenderer = nil;
@@ -45,13 +45,8 @@ when defined(js):
         SliderInput(
           `type`="checkbox",
           name="slider-input",
-          checked = state.get(),
+          checked = checked,
           ariaLabel = labelText,
-          onChange = proc (e: Event) =
-            let next = not state.get()
-            state.set(next)
-            if onToggle != nil:
-              onToggle(next)
         )
         SliderFill(
           class = "slider-fill",

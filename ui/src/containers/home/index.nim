@@ -89,7 +89,7 @@ when defined(js):
 
           NavToggleWrap:
             Slider(
-              state = colorMode,
+              checked = colorMode,
               labelText = "Toggle color mode",
               colors = SliderColors(
                 track: "rgba(255, 255, 255, 0.25)",
