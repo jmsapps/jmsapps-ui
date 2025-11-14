@@ -11,8 +11,11 @@ when defined(js):
 
   import "../../utils/animations/index.nim"
 
+  import "../../hooks/useTheme/index"
+
   proc Home*(): Node =
-    let colorMode = signal(false)
+    let theme = useTheme()
+    let colorMode = signal(theme.get() == "dark")
 
     let focusAreas = @[
       FocusArea(
@@ -89,24 +92,19 @@ when defined(js):
 
           NavToggleWrap:
             Slider(
-              checked = colorMode,
+              isToggled = colorMode,
               labelText = "Toggle color mode",
-              colors = SliderColors(
-                track: "rgba(255, 255, 255, 0.25)",
-                thumb: "#ffffff",
-                thumbActive: "#7cc0ff"
-              ),
               leftSlot = block:
-                sliderSlot:
-                  span: "☀️",
+                span: "☀️",
               rightSlot = block:
-                sliderSlot:
-                  span: "🌙",
+                span: "🌙",
               onToggle = proc (next: bool) =
                 if next:
                   setStyledTheme(DarkTheme)
+                  theme.set("dark")
                 else:
                   setStyledTheme(LightTheme)
+                  theme.set("light")
             )
 
           NavResume(href = "assets/jeff_santos_resume.pdf", target = "_blank", rel = "noreferrer noopener"):

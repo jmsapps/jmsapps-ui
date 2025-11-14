@@ -3,29 +3,14 @@ when defined(js):
 
   import "styles"
 
-  type
-    SliderColors* = object
-      track*: string
-      thumb*: string
-      thumbActive*: string
-
-    SliderSlotRenderer* = proc (): Node
-
-  template sliderSlot*(body: untyped): SliderSlotRenderer =
-    proc (): Node =
-      body
-
-  proc renderSlot(slot: SliderSlotRenderer): Node =
-    if slot == nil:
-      return nil
-    slot()
+  import "types"
 
   proc Slider*(
-    checked: Signal[bool]
+    isToggled: Signal[bool];
     onToggle: proc (next: bool) = nil;
     labelText: string = "Toggle option";
-    leftSlot: SliderSlotRenderer = nil;
-    rightSlot: SliderSlotRenderer = nil;
+    leftSlot: Node = nil;
+    rightSlot: Node = nil;
     colors: SliderColors = SliderColors()
   ): Node =
     let trackColor = if colors.track.len > 0: colors.track else: "var(--grey)"
@@ -33,10 +18,9 @@ when defined(js):
     let thumbActive = if colors.thumbActive.len > 0: colors.thumbActive else: thumbColor
 
     SliderContainer:
-      let leftNode = renderSlot(leftSlot)
-      if not leftNode.isNil:
+      if not leftSlot.isNil:
         SliderSlot:
-          leftNode
+          leftSlot
 
       SliderLabel(
         ariaLabel = labelText,
@@ -45,8 +29,13 @@ when defined(js):
         SliderInput(
           `type`="checkbox",
           name="slider-input",
-          checked = checked,
           ariaLabel = labelText,
+          checked = isToggled,
+          onChange = proc (e: Event) =
+            let next = isToggled.get()
+
+            if not onToggle.isNil:
+              onToggle(next)
         )
         SliderFill(
           class = "slider-fill",
@@ -56,7 +45,8 @@ when defined(js):
           )
         )
 
-      let rightNode = renderSlot(rightSlot)
-      if not rightNode.isNil:
+      if not rightSlot.isNil:
         SliderSlot:
-          rightNode
+          rightSlot
+
+export SliderColors
