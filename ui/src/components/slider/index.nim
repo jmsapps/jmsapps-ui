@@ -28,7 +28,7 @@ when defined(js):
     rightSlot: SliderSlotRenderer = nil;
     colors: SliderColors = SliderColors()
   ): Node =
-    let trackColor = if colors.track.len > 0: colors.track else: "rgba(255, 255, 255, 0.35)"
+    let trackColor = if colors.track.len > 0: colors.track else: "var(--grey)"
     let thumbColor = if colors.thumb.len > 0: colors.thumb else: "var(--primary)"
     let thumbActive = if colors.thumbActive.len > 0: colors.thumbActive else: thumbColor
 
@@ -44,7 +44,8 @@ when defined(js):
       ):
         SliderInput(
           `type`="checkbox",
-          checked = state,
+          name="slider-input",
+          checked = state.get(),
           ariaLabel = labelText,
           onChange = proc (e: Event) =
             let next = not state.get()

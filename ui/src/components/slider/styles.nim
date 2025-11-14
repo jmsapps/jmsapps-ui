@@ -42,7 +42,7 @@ when defined(js):
     """
       position: absolute;
       left: 2px;
-      width: 22px;
+      width: 20px;
       height: 22px;
       border-radius: 50%;
       background: var(--slider-thumb-color, var(--primary));

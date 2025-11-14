@@ -14,7 +14,7 @@ when defined(js):
     let router: Router = router()
     let location: Signal[string] = router.location
 
-    setStyledTheme(DarkTheme)
+    setStyledTheme(LightTheme)
 
     Routes(location):
       Route(path="/", component=Home)
