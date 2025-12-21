@@ -13,7 +13,6 @@ when defined(js):
       color: var(--foreground);
       display: flex;
       flex-direction: column;
-      gap: 32px;
       font-family: 'Inter', 'Roboto', sans-serif;
       overflow-x: hidden;
     """

@@ -81,7 +81,7 @@ when defined(js):
     scheduleRevealSetup()
 
     Page:
-      NavBar
+      NavBar()
 
       HeroSection:
         HeroContent:

@@ -20,7 +20,15 @@ when defined(js):
 
     Routes(location):
       Route(path="/", component=Home)
-      Route(path="/ntml", component=NtmlDocs)
+
+      Route(path="/ntml", component=NtmlDocsGettingStarted)
+      Route(path="/ntml/getting-started", component=NtmlDocsGettingStarted)
+      Route(path="/ntml/installation", component=NtmlDocsInstallation)
+      Route(path="/ntml/elements", component=NtmlDocsElements)
+      Route(path="/ntml/signals", component=NtmlDocsSignals)
+      Route(path="/ntml/routing", component=NtmlDocsRouting)
+      Route(path="/ntml/styling", component=NtmlDocsStyling)
+
       Route(path="*", component=NotFound)
 
   try:

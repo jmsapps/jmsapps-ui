@@ -16,7 +16,7 @@ when defined(js):
       box-shadow: var(--shadow);
     """
 
-  styled BrandButton = button:
+  styled BrandText = d:
     """
       border: none;
       background: transparent;
@@ -24,7 +24,6 @@ when defined(js):
       font-weight: 700;
       letter-spacing: 0.08em;
       font-size: 1rem;
-      cursor: pointer;
       padding: 0.35rem 0.5rem;
     """
 
