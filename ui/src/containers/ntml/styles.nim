@@ -81,9 +81,6 @@ when defined(js):
       padding: 0;
       display: grid;
       gap: 0.25rem;
-      @media (max-width: 900px) {
-        display: none;
-      }
     """
 
   styled NtmlDocsNavItem = li:
@@ -113,46 +110,6 @@ when defined(js):
         color: var(--foreground);
         background: var(--highlight);
       }
-    """
-
-  styled NtmlDocsAccordion = details:
-    """
-      display: none;
-      background: rgba(255, 255, 255, 0.08);
-      border-radius: 0.9rem;
-      padding: 0.35rem 0.6rem 0.5rem;
-      @media (max-width: 900px) {
-        display: block;
-      }
-    """
-
-  styled NtmlDocsAccordionSummary = summary:
-    """
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-weight: 600;
-      color: var(--foreground);
-      list-style: none;
-      padding: 0.2rem 0;
-      &::after {
-        content: "⌄";
-        font-size: 1rem;
-        color: var(--muted);
-      }
-      &::-webkit-details-marker {
-        display: none;
-      }
-    """
-
-  styled NtmlDocsAccordionList = ul:
-    """
-      list-style: none;
-      margin: 0;
-      padding: 0.5rem 0 0.2rem;
-      display: grid;
-      gap: 0.25rem;
     """
 
   styled NtmlDocsSideFooter = d:

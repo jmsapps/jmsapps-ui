@@ -44,25 +44,6 @@ when defined(js):
         DocsNavButton("Styling", "/ntml/styling", location)
 
 
-  proc DocsNavAccordion(location: Signal[string]): Node =
-    NtmlDocsAccordion:
-      NtmlDocsAccordionSummary:
-        "Docs"
-      NtmlDocsAccordionList:
-        NtmlDocsNavItem:
-          DocsNavButton("Getting Started", "/ntml/getting-started", location)
-        NtmlDocsNavItem:
-          DocsNavButton("Installation", "/ntml/installation", location)
-        NtmlDocsNavItem:
-          DocsNavButton("Elements", "/ntml/elements", location)
-        NtmlDocsNavItem:
-          DocsNavButton("Signals", "/ntml/signals", location)
-        NtmlDocsNavItem:
-          DocsNavButton("Routing", "/ntml/routing", location)
-        NtmlDocsNavItem:
-          DocsNavButton("Styling", "/ntml/styling", location)
-
-
   proc NtmlDocsLayout(
     title: string,
     subtitle: string,
@@ -81,11 +62,7 @@ when defined(js):
               NtmlDocsSideBadge:
                 "Docs"
 
-            NtmlDocsNavGroupTitle:
-              "Core"
-
             DocsNavList(location)
-            DocsNavAccordion(location)
 
             NtmlDocsSideFooter:
               NtmlDocsMetaTag:

@@ -35,6 +35,10 @@ when defined(js):
       padding-left: 1rem;
       margin-left: 0.5rem;
       border-left: 1px solid var(--border);
+
+      @media (max-width: 900px) {
+        padding-left: 0;
+      }
     """
 
   styled NavButton = button:
