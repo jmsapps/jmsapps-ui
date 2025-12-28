@@ -12,18 +12,24 @@ when defined(js):
 
   proc NavBar*(): Node =
     let theme = useTheme()
+    let router = router()
     let colorMode = signal(theme.get() == "dark")
     let logo = derived(colorMode, proc (x: bool): string = (if x: "light" else: "dark"))
 
     NavBarContainer:
-      BrandLogo(src="/assets/logo_" & logo & ".svg", alt="JMS APPS")
+      BrandLogo(
+        src="/assets/logo_" & logo & ".svg",
+        alt="JMS APPS",
+        onClick = proc (e: Event) = navigate("/")
+      )
 
       NavLinks:
-        NavButton(`type`="button", onClick = proc (e: Event) = navigate("/")):
-          "Home"
-
-        NavButton(`type`="button", onClick = proc (e: Event) = navigate("/ntml")):
-          "NTML Docs"
+        if "ntml" in router.location:
+          NavButton(`type`="button", onClick = proc (e: Event) = navigate("/")):
+            "Home"
+        else:
+          NavButton(`type`="button", onClick = proc (e: Event) = navigate("/ntml")):
+            "NTML Docs"
 
         NavToggleWrap:
           Slider(

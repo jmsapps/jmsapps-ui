@@ -20,6 +20,7 @@ when defined(js):
     """
       height: 32px;
       display: block;
+      cursor: pointer;
     """
 
   styled NavToggleWrap = d:

@@ -39,6 +39,8 @@ when defined(js):
       NtmlDocsNavItem:
         DocsNavButton("Signals", "/ntml/signals", location)
       NtmlDocsNavItem:
+        DocsNavButton("Overloads", "/ntml/overloads", location)
+      NtmlDocsNavItem:
         DocsNavButton("Effects", "/ntml/effects", location)
 
 
@@ -84,7 +86,7 @@ when defined(js):
 
             NtmlDocsSideFooter:
               NtmlDocsMetaTag:
-                "v0.5.1"
+                "v0.5.2"
               NtmlDocsMetaTag:
                 "JS target"
 
@@ -116,6 +118,11 @@ when defined(js):
               "NTML is a reactive client-side single page application renderer written in Nim. "
               "It provides a lightweight signal and effect system, and a JSX-like DSL for composing "
               "DOM nodes with reactive updates."
+            NtmlDocsParagraph:
+              "View the source, issues, and contribution history at "
+              NtmlDocsInlineLink(href="https://github.com/jmsapps/ntml", target="_blank", rel="noreferrer noopener"):
+                "github.com/jmsapps/ntml"
+              "."
 
           NtmlDocsSection:
             NtmlDocsSectionTitle:
@@ -160,15 +167,6 @@ when defined(js):
               NtmlDocsFeatureItem:
                 strong: "Keyed List Rendering"
                 span: " reconciles list updates and preserves element identity."
-
-          NtmlDocsSection:
-            NtmlDocsSectionTitle:
-              "Source and contribution"
-            NtmlDocsParagraph:
-              "View the source, issues, and contribution history at "
-              NtmlDocsInlineLink(href="https://github.com/jmsapps/ntml", target="_blank", rel="noreferrer noopener"):
-                "github.com/jmsapps/ntml"
-              "."
     )
 
 
@@ -185,10 +183,12 @@ when defined(js):
             NtmlDocsSectionTitle:
               "Installation"
             NtmlDocsParagraph:
-              "Add the Git dependency to your .nimble file."
+              "Add the Git dependency to your .nimble file, as well as a convenient build command"
             NtmlDocsCodeBlock:
               NtmlDocsCode:
-                "requires \"https://github.com/jmsapps/ntml >= 0.5.1\"\n"
+                "requires \"https://github.com/jmsapps/ntml >= 0.5.1\"\n\n"
+                "task buildjs, \"Build JMS Apps\":\n"
+                "  exec \"nim js -d:release -o:src/index.js src/app.nim\"\n"
 
           NtmlDocsSection:
             NtmlDocsSectionTitle:
@@ -211,10 +211,10 @@ when defined(js):
                 "</html>"
 
             NtmlDocsParagraph:
-              "You can then build your project, specifying an target path for your js file as needed."
+              "You can then build your project with nimble."
             NtmlDocsCodeBlock:
               NtmlDocsCode:
-                "nim js --out:src/index.js src/app.nim\n"
+                "nimble buildjs\n"
 
             NtmlDocsParagraph:
               "Finally you can serve your project with npx."
@@ -424,6 +424,137 @@ when defined(js):
                 "  jsLog(\"mounted\")\n"
                 ")\n"
                 "# later: cleanup()\n"
+    )
+
+
+  proc NtmlDocsOverloads*(): Node =
+    let location = router().location
+
+    NtmlDocsLayout(
+      title = "Overloads",
+      subtitle = "Operator overloads for Signal compose reactive comparisons and values.",
+      location = location,
+      body = proc (): Node =
+        fragment:
+          NtmlDocsSection:
+            NtmlDocsSectionTitle:
+              "Overview"
+            NtmlDocsParagraph:
+              "Signals provide operator overloads so you can write comparisons, boolean logic, "
+              "contain checks, and string concatenation without unwrapping values. The result is "
+              "always a derived Signal that updates automatically."
+
+          NtmlDocsSection:
+            NtmlDocsSectionTitle:
+              "Comparisons"
+            NtmlDocsParagraph:
+              "Each comparison supports Signal-to-value, value-to-Signal, and Signal-to-Signal."
+            NtmlDocsCodeBlock:
+              NtmlDocsCode:
+                "let a = signal(3)\n"
+                "let b = signal(7)\n"
+                "\n"
+                "let eq = a == 3\n"
+                "let swapEq = 3 == a\n"
+                "let sigEq = a == b\n"
+                "let lt = a < b\n"
+                "let gte = a >= 3\n"
+
+          NtmlDocsSection:
+            NtmlDocsSectionTitle:
+              "Boolean logic"
+            NtmlDocsParagraph:
+              "`and`, `or`, and `not` work with Signal[bool] and raw bool values."
+            NtmlDocsCodeBlock:
+              NtmlDocsCode:
+                "let boolA = signal(true)\n"
+                "let boolB = signal(false)\n"
+                "\n"
+                "let both = boolA and boolB\n"
+                "let either = boolA or false\n"
+                "let flipped = not boolA\n"
+
+          NtmlDocsSection:
+            NtmlDocsSectionTitle:
+              "Contains"
+            NtmlDocsParagraph:
+              "Use `in` with strings, sets, seqs, arrays, and ranges."
+            NtmlDocsCodeBlock:
+              NtmlDocsCode:
+                "let s = signal(\"hello\")\n"
+                "let charSig = signal('e')\n"
+                "let nums = signal(@[1, 2, 3, 4])\n"
+                "let arrSig: Signal[array[3, int]] = signal([10, 20, 30])\n"
+                "let setSig: Signal[set[char]] = signal({'a', 'b', 'c'})\n"
+                "let sliceSig: Signal[HSlice[int, int]] = signal(1..5)\n"
+                "\n"
+                "let inString = charSig in s\n"
+                "let inSeq = 2 in nums\n"
+                "let inArray = 20 in arrSig\n"
+                "let inSet = charSig in setSig\n"
+                "let inRange = 3 in sliceSig\n"
+
+          NtmlDocsSection:
+            NtmlDocsSectionTitle:
+              "Concatenation"
+            NtmlDocsParagraph:
+              "Concatenate Signal values with strings using `&`."
+            NtmlDocsCodeBlock:
+              NtmlDocsCode:
+                "let s = signal(\"hello\")\n"
+                "let t = signal(\"world\")\n"
+                "\n"
+                "let combined = s & \"!\"\n"
+                "let chain = \"hi \" & s\n"
+                "let two = s & t\n"
+
+          NtmlDocsSection:
+            NtmlDocsSectionTitle:
+              "Indexing"
+            NtmlDocsParagraph:
+              "Index into Signal sequences or Signal strings."
+            NtmlDocsCodeBlock:
+              NtmlDocsCode:
+                "let nums = signal(@[1, 2, 3, 4])\n"
+                "let word = signal(\"hello\")\n"
+                "\n"
+                "let second = nums[1]\n"
+                "let letter = word[1]\n"
+
+          NtmlDocsSection:
+            NtmlDocsSectionTitle:
+              "Call operator"
+            NtmlDocsParagraph:
+              "Call a Signal to retrieve its current value."
+            NtmlDocsCodeBlock:
+              NtmlDocsCode:
+                "let count = signal(3)\n"
+                "let value = count()\n"
+
+          NtmlDocsSection:
+            NtmlDocsSectionTitle:
+              "Dot operator"
+            NtmlDocsParagraph:
+              "Field access on a Signal returns a derived Signal with write-through updates."
+            NtmlDocsCodeBlock:
+              NtmlDocsCode:
+                "type Profile = object\n"
+                "  name: string\n"
+                "  score: int\n"
+                "\n"
+                "let profile = signal(Profile(name: \"Ada\", score: 42))\n"
+                "let nameSig = profile.name\n"
+                "profile.name.set(\"Jules\")\n"
+
+          NtmlDocsSection:
+            NtmlDocsSectionTitle:
+              "Length"
+            NtmlDocsParagraph:
+              "len works on Signal seqs and returns a derived Signal[int]."
+            NtmlDocsCodeBlock:
+              NtmlDocsCode:
+                "let nums = signal(@[1, 2, 3, 4])\n"
+                "let size = len(nums)\n"
     )
 
 

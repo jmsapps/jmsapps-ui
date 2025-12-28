@@ -26,6 +26,7 @@ when defined(js):
         Route(path="/ntml/getting-started", component=NtmlDocsGettingStarted)
         Route(path="/ntml/elements", component=NtmlDocsElements)
         Route(path="/ntml/signals", component=NtmlDocsSignals)
+        Route(path="/ntml/overloads", component=NtmlDocsOverloads)
         Route(path="/ntml/effects", component=NtmlDocsEffects)
         Route(path="/ntml/control-flow", component=NtmlDocsControlFlow)
         Route(path="/ntml/routing", component=NtmlDocsRouting)
