@@ -16,15 +16,10 @@ when defined(js):
       box-shadow: var(--shadow);
     """
 
-  styled BrandText = d:
+  styled BrandLogo = img:
     """
-      border: none;
-      background: transparent;
-      color: var(--foreground);
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      font-size: 1rem;
-      padding: 0.35rem 0.5rem;
+      height: 32px;
+      display: block;
     """
 
   styled NavToggleWrap = d:

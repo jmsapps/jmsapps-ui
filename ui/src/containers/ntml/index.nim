@@ -12,7 +12,7 @@ when defined(js):
   proc navActiveState(location: Signal[string], path: string): Signal[string] =
     derived(location, proc (current: string): string =
       if current == path or current.startsWith(path & "/") or
-          (path == "/ntml/getting-started" and current == "/ntml"):
+          (path == "/ntml/overview" and current == "/ntml"):
         "true"
       else:
         "false"
@@ -28,20 +28,30 @@ when defined(js):
       label
 
 
-  proc DocsNavList(location: Signal[string]): Node =
+  proc DocsNavListCore(location: Signal[string]): Node =
     NtmlDocsNavList:
       NtmlDocsNavItem:
-        DocsNavButton("Getting Started", "/ntml/getting-started", location)
+        DocsNavButton("Overview", "/ntml/overview", location)
       NtmlDocsNavItem:
-        DocsNavButton("Installation", "/ntml/installation", location)
+        DocsNavButton("Getting Started", "/ntml/getting-started", location)
       NtmlDocsNavItem:
         DocsNavButton("Elements", "/ntml/elements", location)
       NtmlDocsNavItem:
         DocsNavButton("Signals", "/ntml/signals", location)
       NtmlDocsNavItem:
+        DocsNavButton("Effects", "/ntml/effects", location)
+
+
+  proc DocsNavListPatterns(location: Signal[string]): Node =
+    NtmlDocsNavList:
+      NtmlDocsNavItem:
+        DocsNavButton("Control Flow", "/ntml/control-flow", location)
+      NtmlDocsNavItem:
         DocsNavButton("Routing", "/ntml/routing", location)
       NtmlDocsNavItem:
         DocsNavButton("Styling", "/ntml/styling", location)
+      NtmlDocsNavItem:
+        DocsNavButton("Forms", "/ntml/forms", location)
 
 
   proc NtmlDocsLayout(
@@ -51,7 +61,7 @@ when defined(js):
     body: proc (): Node
   ): Node =
     Page:
-      NavBar(brandText = "JMS APPS")
+      NavBar
 
       NtmlDocsPage:
         NtmlDocsShell:
@@ -62,7 +72,15 @@ when defined(js):
               NtmlDocsSideBadge:
                 "Docs"
 
-            DocsNavList(location)
+            NtmlDocsNavGroupTitle:
+              "Core"
+
+            DocsNavListCore(location)
+
+            NtmlDocsNavGroupTitle:
+              "Patterns"
+
+            DocsNavListPatterns(location)
 
             NtmlDocsSideFooter:
               NtmlDocsMetaTag:
@@ -82,6 +100,78 @@ when defined(js):
             body()
 
 
+  proc NtmlDocsOverview*(): Node =
+    let location = router().location
+
+    NtmlDocsLayout(
+      title = "NTML",
+      subtitle = "The next-gen-reactive template markup language.",
+      location = location,
+      body = proc (): Node =
+        fragment:
+          NtmlDocsSection:
+            NtmlDocsSectionTitle:
+              "Overview"
+            NtmlDocsParagraph:
+              "NTML is a reactive client-side single page application renderer written in Nim. "
+              "It provides a lightweight signal and effect system, and a JSX-like DSL for composing "
+              "DOM nodes with reactive updates."
+
+          NtmlDocsSection:
+            NtmlDocsSectionTitle:
+              "Features"
+            NtmlDocsFeatureList:
+              NtmlDocsFeatureItem:
+                strong: "Signals"
+                span: " reactive primitives for state management."
+              NtmlDocsFeatureItem:
+                strong: "Derived Signals"
+                span: " automatically compute values from other signals."
+              NtmlDocsFeatureItem:
+                strong: "Effects"
+                span: " side effects that run in response to signal changes."
+              NtmlDocsFeatureItem:
+                strong: "DOM Helpers"
+                span: " simple wrappers for element creation and updates."
+              NtmlDocsFeatureItem:
+                strong: "Control Flow"
+                span: " templates for if, case, and loops inside the DSL."
+              NtmlDocsFeatureItem:
+                strong: "Component Props"
+                span: " composable component definitions with inheritance support."
+              NtmlDocsFeatureItem:
+                strong: "Routing"
+                span: " simple and intuitive routing with navigate()."
+              NtmlDocsFeatureItem:
+                strong: "Styled Components"
+                span: " reactive styled macro keeps components clean and organized."
+              NtmlDocsFeatureItem:
+                strong: "Form Bindings"
+                span: " built-in bindValue and bindChecked wire signals to form inputs."
+              NtmlDocsFeatureItem:
+                strong: "Lifecycle Cleanup"
+                span: " automatic teardown releases subscriptions, events, and styles."
+              NtmlDocsFeatureItem:
+                strong: "Signal Operators"
+                span: " overloads let you compose comparisons and boolean logic on Signals."
+              NtmlDocsFeatureItem:
+                strong: "Reactive CSS Vars"
+                span: " styleVars keeps CSS custom properties synced with signals."
+              NtmlDocsFeatureItem:
+                strong: "Keyed List Rendering"
+                span: " reconciles list updates and preserves element identity."
+
+          NtmlDocsSection:
+            NtmlDocsSectionTitle:
+              "Source and contribution"
+            NtmlDocsParagraph:
+              "View the source, issues, and contribution history at "
+              NtmlDocsInlineLink(href="https://github.com/jmsapps/ntml", target="_blank", rel="noreferrer noopener"):
+                "github.com/jmsapps/ntml"
+              "."
+    )
+
+
   proc NtmlDocsGettingStarted*(): Node =
     let location = router().location
 
@@ -91,6 +181,47 @@ when defined(js):
       location = location,
       body = proc (): Node =
         fragment:
+          NtmlDocsSection:
+            NtmlDocsSectionTitle:
+              "Installation"
+            NtmlDocsParagraph:
+              "Add the Git dependency to your .nimble file."
+            NtmlDocsCodeBlock:
+              NtmlDocsCode:
+                "requires \"https://github.com/jmsapps/ntml >= 0.5.1\"\n"
+
+          NtmlDocsSection:
+            NtmlDocsSectionTitle:
+              "JS target"
+            NtmlDocsParagraph:
+              "NTML is designed for the JS target. "
+              "You'll need an index.html file to serve your application from."
+            NtmlDocsCodeBlock:
+              NtmlDocsCode:
+                "<!DOCTYPE html>\n"
+                "<html lang=\"en\">\n"
+                "  <head>\n"
+                "    <meta charset=\"UTF-8\" />\n"
+                "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n"
+                "    <title>Run Nim-Generated JS</title>\n"
+                "  </head>\n"
+                "  <body>\n"
+                "    <script src=\"/index.js\"></script>\n"
+                "  </body>\n"
+                "</html>"
+
+            NtmlDocsParagraph:
+              "You can then build your project, specifying an target path for your js file as needed."
+            NtmlDocsCodeBlock:
+              NtmlDocsCode:
+                "nim js --out:src/index.js src/app.nim\n"
+
+            NtmlDocsParagraph:
+              "Finally you can serve your project with npx."
+            NtmlDocsCodeBlock:
+              NtmlDocsCode:
+                "npx serve --single src"
+
           NtmlDocsSection:
             NtmlDocsSectionTitle:
               "Hello, NTML"
@@ -125,41 +256,19 @@ when defined(js):
                 "proc Button*(label: string): Node =\n"
                 "  button(className=\"btn\"):\n"
                 "    label\n"
-    )
 
-
-  proc NtmlDocsInstallation*(): Node =
-    let location = router().location
-
-    NtmlDocsLayout(
-      title = "Installation",
-      subtitle = "Add NTML to your Nimble project and target JavaScript.",
-      location = location,
-      body = proc (): Node =
-        fragment:
           NtmlDocsSection:
             NtmlDocsSectionTitle:
-              "Nimble dependency"
+              "State at a glance"
             NtmlDocsParagraph:
-              "Add the Git dependency to your .nimble file."
+              "Signals hold state and can be mounted directly as children."
             NtmlDocsCodeBlock:
               NtmlDocsCode:
-                "requires \"https://github.com/jmsapps/ntml >= 0.5.1\"\n"
-
-          NtmlDocsSection:
-            NtmlDocsSectionTitle:
-              "Install locally"
-            NtmlDocsParagraph:
-              "Install the package or let Nimble fetch it automatically on build."
-            NtmlDocsCodeBlock:
-              NtmlDocsCode:
-                "nimble install ntml\n"
-
-          NtmlDocsSection:
-            NtmlDocsSectionTitle:
-              "JS target"
-            NtmlDocsParagraph:
-              "NTML is designed for the JS target. Compile with nim js or the tooling in your build."
+                "let count = signal(0)\n"
+                "\n"
+                "d:\n"
+                "  span: \"Count: \"\n"
+                "  span: count\n"
     )
 
 
@@ -176,7 +285,16 @@ when defined(js):
             NtmlDocsSectionTitle:
               "Tag macros"
             NtmlDocsParagraph:
-              "Most HTML tags are available. A few aliases exist: div is d, template is tmpl, object is obj."
+              "Most HTML tags are available. "
+              "Nim has some collisions with existing html tags, one example being the reserved "
+              "keyword `div`. For this reason a few aliases exist: "
+              ul:
+                li: "div is d"
+                li: "template is tmpl"
+                li: "object is obj"
+                li: "var is v"
+              "The rest are what you should expect."
+
             NtmlDocsCodeBlock:
               NtmlDocsCode:
                 "d(className=\"panel\"):\n"
@@ -187,11 +305,23 @@ when defined(js):
             NtmlDocsSectionTitle:
               "Attributes"
             NtmlDocsParagraph:
-              "Use named attributes just like HTML. Event handlers start with on."
+              "Use named attributes just like HTML. Event handlers start with `on`."
             NtmlDocsCodeBlock:
               NtmlDocsCode:
                 "button(`type`=\"button\", onClick = proc (e: Event) = echo \"clicked\"):\n"
                 "  \"Click me\"\n"
+
+          NtmlDocsSection:
+            NtmlDocsSectionTitle:
+              "Fragments"
+            NtmlDocsParagraph:
+              "Use fragment to return multiple siblings from a component."
+            NtmlDocsCodeBlock:
+              NtmlDocsCode:
+                "proc Header*(): Node =\n"
+                "  fragment:\n"
+                "    h1: \"NTML\"\n"
+                "    p: \"Tiny DOM DSL\"\n"
     )
 
 
@@ -225,6 +355,142 @@ when defined(js):
                 "  if v == 1: \"One\"\n"
                 "  else: $v\n"
                 ")\n"
+
+          NtmlDocsSection:
+            NtmlDocsSectionTitle:
+              "Dot expression overloads"
+            NtmlDocsParagraph:
+              "Accessing a field on a Signal creates a derived signal that stays in sync with the parent."
+            NtmlDocsCodeBlock:
+              NtmlDocsCode:
+                "type Profile = object\n"
+                "  name: string\n"
+                "  age: int\n"
+                "\n"
+                "let profile = signal(Profile(name: \"Ada\", age: 37))\n"
+                "let nameSignal = profile.name\n"
+                "\n"
+                "span: nameSignal\n"
+                "button(onClick = proc (e: Event) = nameSignal.set(\"Grace\")):\n"
+                "  \"Rename\"\n"
+    )
+
+
+  proc NtmlDocsEffects*(): Node =
+    let location = router().location
+
+    NtmlDocsLayout(
+      title = "Effects",
+      subtitle = "Run side effects in response to signal changes and clean them up.",
+      location = location,
+      body = proc (): Node =
+        fragment:
+          NtmlDocsSection:
+            NtmlDocsSectionTitle:
+              "Basic effect"
+            NtmlDocsParagraph:
+              "Use effect with dependencies to run when signals change."
+            NtmlDocsCodeBlock:
+              NtmlDocsCode:
+                "let count = signal(0)\n"
+                "discard effect(proc (): void =\n"
+                "  jsLog(\"count=\" & $count.get())\n"
+                ", [count])\n"
+
+          NtmlDocsSection:
+            NtmlDocsSectionTitle:
+              "Cleanup"
+            NtmlDocsParagraph:
+              "Return an Unsub to clean up listeners or timers."
+            NtmlDocsCodeBlock:
+              NtmlDocsCode:
+                "let isActive = signal(true)\n"
+                "discard effect(proc (): Unsub =\n"
+                "  if not isActive.get():\n"
+                "    return proc () = discard\n"
+                "  let handler = proc (e: Event) = jsLog(\"resize\")\n"
+                "  jsAddEventListener(window, cstring(\"resize\"), handler)\n"
+                "  return proc () = jsRemoveEventListener(window, cstring(\"resize\"), handler)\n"
+                ", [isActive])\n"
+
+          NtmlDocsSection:
+            NtmlDocsSectionTitle:
+              "One-time setup"
+            NtmlDocsParagraph:
+              "Call effect without deps to run once. Store the returned Unsub if you need manual cleanup."
+            NtmlDocsCodeBlock:
+              NtmlDocsCode:
+                "let cleanup = effect(proc (): void =\n"
+                "  jsLog(\"mounted\")\n"
+                ")\n"
+                "# later: cleanup()\n"
+    )
+
+
+  proc NtmlDocsControlFlow*(): Node =
+    let location = router().location
+
+    NtmlDocsLayout(
+      title = "Control Flow",
+      subtitle = "Conditionals, loops, and keyed lists are compiled into efficient DOM updates.",
+      location = location,
+      body = proc (): Node =
+        fragment:
+          NtmlDocsSection:
+            NtmlDocsSectionTitle:
+              "If and else"
+            NtmlDocsParagraph:
+              "Use if/elif/else in your markup. Signals work directly."
+            NtmlDocsCodeBlock:
+              NtmlDocsCode:
+                "let isReady = signal(false)\n"
+                "d:\n"
+                "  if isReady:\n"
+                "    span: \"Loaded\"\n"
+                "  else:\n"
+                "    span: \"Loading...\"\n"
+
+          NtmlDocsSection:
+            NtmlDocsSectionTitle:
+              "Case"
+            NtmlDocsParagraph:
+              "case statements also work inside templates."
+            NtmlDocsCodeBlock:
+              NtmlDocsCode:
+                "let status = signal(\"idle\")\n"
+                "d:\n"
+                "  case status:\n"
+                "  of \"idle\": span: \"Idle\"\n"
+                "  of \"busy\": span: \"Working\"\n"
+                "  else: span: \"Unknown\"\n"
+
+          NtmlDocsSection:
+            NtmlDocsSectionTitle:
+              "For loops"
+            NtmlDocsParagraph:
+              "Loop over seqs or signals of seqs to render lists."
+            NtmlDocsCodeBlock:
+              NtmlDocsCode:
+                "let items = signal(@[\"Alpha\", \"Beta\", \"Gamma\"])\n"
+                "ul:\n"
+                "  for item in items:\n"
+                "    li: item\n"
+
+          NtmlDocsSection:
+            NtmlDocsSectionTitle:
+              "Keyed diffs"
+            NtmlDocsParagraph:
+              "Add key inside the loop to enable keyed patching for reorderable lists."
+            NtmlDocsCodeBlock:
+              NtmlDocsCode:
+                "type Item = object\n"
+                "  id: int\n"
+                "  label: string\n"
+                "\n"
+                "let items = signal(@[Item(id: 1, label: \"One\"), Item(id: 2, label: \"Two\")])\n"
+                "ul:\n"
+                "  for item in items:\n"
+                "    li(key = item.id): item.label\n"
     )
 
 
@@ -247,7 +513,9 @@ when defined(js):
                 "let router = router()\n"
                 "Routes(router.location):\n"
                 "  Route(path=\"/\", component=Home)\n"
-                "  Route(path=\"/ntml/getting-started\", component=NtmlDocsGettingStarted)\n"
+                "  Route(path=\"/ntml\"):\n"
+                "    Route(path=\"getting-started\", component=NtmlDocsGettingStarted)\n"
+                "    Route(path=\"signals\", component=NtmlDocsSignals)\n"
 
           NtmlDocsSection:
             NtmlDocsSectionTitle:
@@ -256,8 +524,8 @@ when defined(js):
               "Use navigate() from events to change routes."
             NtmlDocsCodeBlock:
               NtmlDocsCode:
-                "button(onClick = proc (e: Event) = navigate(\"/ntml/installation\")):\n"
-                "  \"Install\"\n"
+                "button(onClick = proc (e: Event) = navigate(\"/ntml/getting-started\")):\n"
+                "  \"Getting Started\"\n"
     )
 
 
@@ -292,4 +560,78 @@ when defined(js):
               NtmlDocsCode:
                 "d(css = \"background: #111; color: #fff; padding: 1rem;\"):\n"
                 "  \"Inline styling\"\n"
+
+          NtmlDocsSection:
+            NtmlDocsSectionTitle:
+              "CSS variables"
+            NtmlDocsParagraph:
+              "styleVars builds CSS variables at runtime and can bind signals."
+            NtmlDocsCodeBlock:
+              NtmlDocsCode:
+                "let hue = signal(\"220\")\n"
+                "let accent = derived(hue, proc (v: string): string =\n"
+                "  \"hsl(\" & v & \", 90%, 60%)\"\n"
+                ")\n"
+                "d(styleVars = styleVars(\"--accent\" = accent)):\n"
+                "  \"Dynamic color\"\n"
+    )
+
+
+  proc NtmlDocsForms*(): Node =
+    let location = router().location
+
+    NtmlDocsLayout(
+      title = "Forms",
+      subtitle = "Bind inputs to signals and handle form events explicitly.",
+      location = location,
+      body = proc (): Node =
+        fragment:
+          NtmlDocsSection:
+            NtmlDocsSectionTitle:
+              "Text input"
+            NtmlDocsParagraph:
+              "value accepts a Signal[string]. Update the signal on input."
+            NtmlDocsCodeBlock:
+              NtmlDocsCode:
+                "let name = signal(\"\")\n"
+                "form:\n"
+                "  input(\n"
+                "    `type`=\"text\",\n"
+                "    value=name,\n"
+                "    onInput = proc (e: Event) =\n"
+                "      let target = cast[Node](e.target)\n"
+                "      name.set($jsGetStringProp(target, cstring(\"value\")))\n"
+                "  )\n"
+                "  p: name\n"
+
+          NtmlDocsSection:
+            NtmlDocsSectionTitle:
+              "Checkbox"
+            NtmlDocsParagraph:
+              "checked binds to Signal[bool]. Update it from onChange."
+            NtmlDocsCodeBlock:
+              NtmlDocsCode:
+                "let accepted = signal(false)\n"
+                "label:\n"
+                "  input(\n"
+                "    `type`=\"checkbox\",\n"
+                "    checked=accepted,\n"
+                "    onChange = proc (e: Event) =\n"
+                "      let target = cast[Node](e.target)\n"
+                "      accepted.set(jsGetBoolProp(target, cstring(\"checked\")))\n"
+                "  )\n"
+                "  span: \"Accept terms\"\n"
+
+          NtmlDocsSection:
+            NtmlDocsSectionTitle:
+              "Submit"
+            NtmlDocsParagraph:
+              "Handle submit events to prevent full page reloads."
+            NtmlDocsCodeBlock:
+              NtmlDocsCode:
+                "form(onSubmit = proc (e: Event) =\n"
+                "  e.preventDefault()\n"
+                "  jsLog(\"submit\")\n"
+                "):\n"
+                "  button(`type`=\"submit\"): \"Save\"\n"
     )

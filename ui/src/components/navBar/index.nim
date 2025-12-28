@@ -10,15 +10,13 @@ when defined(js):
   import "global/theme/index"
 
 
-  proc NavBar*(
-    brandText: string = "JMS APPS",
-  ): Node =
+  proc NavBar*(): Node =
     let theme = useTheme()
     let colorMode = signal(theme.get() == "dark")
+    let logo = derived(colorMode, proc (x: bool): string = (if x: "light" else: "dark"))
 
     NavBarContainer:
-      BrandText:
-        brandText
+      BrandLogo(src="/assets/logo_" & logo & ".svg", alt="JMS APPS")
 
       NavLinks:
         NavButton(`type`="button", onClick = proc (e: Event) = navigate("/")):

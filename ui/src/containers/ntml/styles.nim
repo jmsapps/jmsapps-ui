@@ -181,6 +181,39 @@ when defined(js):
       max-width: 70ch;
     """
 
+  styled NtmlDocsHeroLogo = img:
+    """
+      width: min(260px, 70%);
+      height: auto;
+      display: block;
+      margin-top: 1rem;
+    """
+
+  styled NtmlDocsFeatureList = ul:
+    """
+      display: grid;
+      gap: 0.5rem;
+    """
+
+  styled NtmlDocsFeatureItem = li:
+    """
+      color: var(--muted);
+      line-height: 1.6;
+    """
+
+  styled NtmlDocsInlineLink = a:
+    """
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      border-bottom: 1px solid transparent;
+      transition: color 0.2s ease, border-color 0.2s ease;
+      &:hover {
+        color: var(--foreground);
+        border-color: currentColor;
+      }
+    """
+
   styled NtmlDocsCodeBlock = pre:
     """
       margin: 0;
