@@ -4,7 +4,7 @@ license       = "GNU General Public License v2.0"
 description   = "Personal website for JMS Apps"
 srcDir        = "src"
 
-requires      "https://github.com/jmsapps/ntml == 0.5.2"
+requires      "https://github.com/jmsapps/ntml == 0.5.3"
 
 task buildjs, "Build JMS Apps":
   exec "nim js -d:release -o:src/index.js src/app.nim"
