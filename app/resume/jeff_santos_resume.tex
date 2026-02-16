@@ -3,7 +3,7 @@
 % Author : Jake Gutierrez
 % Based off of: https://github.com/sb2nov/resume
 % License : MIT
-%------------------------
+%-------------------------
 
 \documentclass[letterpaper,11pt]{article}
 
@@ -20,18 +20,8 @@
 \usepackage{tabularx}
 \input{glyphtounicode}
 
-
-%----------FONT OPTIONS----------
-% sans-serif
-% \usepackage[sfdefault]{FiraSans}
-% \usepackage[sfdefault]{roboto}
-% \usepackage[sfdefault]{noto-sans}
-% \usepackage[default]{sourcesanspro}
-
 % serif
-% \usepackage{CormorantGaramond}
 \usepackage{charter}
-
 
 \pagestyle{fancy}
 \fancyhf{} % clear all header and footer fields
@@ -63,9 +53,7 @@
 %-------------------------
 % Custom commands
 \newcommand{\resumeItem}[1]{
-  \item\small{
-    {#1 \vspace{-2pt}}
-  }
+  \item\small{#1\vspace{-2pt}}
 }
 
 \newcommand{\resumeSubheading}[4]{
@@ -108,21 +96,34 @@
 
 %----------HEADING----------
 \begin{center}
-    \textbf{\Huge \scshape Jeff Santos} \\ \vspace{1pt}
-    \small 416-346-6069 $|$ \href{mailto:jmsapps@outlook.com}{\underline{jmsapps@outlook.com}} $|$
-    \href{https://github.com/jmsapps}{\underline{github.com/jmsapps}} $|$
-    \small Toronto, ON
+    \textbf{\Huge \scshape Jeff Santos} \\ \vspace{2pt}
+    \small AI Engineer \\ \vspace{2pt}
+    \small +351 911 012 161 $|$
+    Lisbon, Portugal (Remote) \\
+		\href{mailto:jmsapps@outlook.com}{\underline{jmsapps@outlook.com}} $|$
+    \href{https://jmsapps.ca}{\underline{jmsapps.ca}} $|$
+    \href{https://www.linkedin.com/in/jmsapps/}{\underline{linkedin.com/in/jmsapps}} $|$
+    \href{https://github.com/jmsapps}{\underline{github.com/jmsapps}}
 \end{center}
 
 
-%-----------PROGRAMMING SKILLS-----------
+%-----------SUMMARY-----------
+\section{Summary}
+\begin{itemize}[leftmargin=0.15in, label={}]
+  \small{\item{
+    Full-stack engineer specializing in AI-enabled data platforms and cloud-native systems. Experienced with Python, TypeScript, React, Svelte, NestJS/Node.js, and PostgreSQL/GraphQL. Builds reliable ingestion pipelines for Retrieval-Augmented Generation (RAG) using Azure Document Intelligence, validation/observability best practices, and CI/CD automation across Azure and GCP.
+  }}
+\end{itemize}
+
+%-----------SKILLS-----------
 \section{Skills}
  \begin{itemize}[leftmargin=0.15in, label={}]
     \small{\item{
-      \textbf{Frontend}{: CSS, DOM, HTML, Javascript, Liquid, React Native, React.js, Redux, Svelte, Styled Components, Swift, TypeScript} \\
-      \textbf{Backend}{: ExpressJS, Httpbeast, NestJS, Nim, Node.js, Python, Solidity, Tornado, Typescript} \\
-      \textbf{Database}{: Core Data, GraphQL, Hasura, MongoDB, MySQL, NoSQL, OData, ORM, PostgreSQL, SQL, SQLGlot} \\
-      \textbf{Technologies}{: Amazon Web Services (EC2, S3), Azure, Bash, CI/CD, Docker, Ethers.js, Git, Google Cloud Provider, HAProxy, Keycloak, Linux, MetaMask, Nginx, REST API, SOAP, Stripe, Terraform}
+      \textbf{Frontend}{: CSS, DOM, HTML, JavaScript, Liquid, React Native, React.js, Redux, Svelte, Styled Components, Swift, TypeScript} \\
+      \textbf{Backend}{: ExpressJS, NestJS, Nim, Node.js, Python, Tornado, TypeScript, Django} \\
+      \textbf{Data \& AI}{: RAG, Azure Document Intelligence, Hugging Face (transformations), Data validation, Observability, Reporting} \\
+      \textbf{Database}{: GraphQL, Hasura, MongoDB, MySQL, PostgreSQL, SQL, NoSQL, OData, ORM} \\
+      \textbf{Cloud \& DevOps}{: Azure, Google Cloud (Cloud Run, Cloud Scheduler), AWS (EC2, S3), Docker, Terraform, GitHub Actions, Linux, Nginx, REST, SOAP}
     }}
  \end{itemize}
 
@@ -131,121 +132,106 @@
   \resumeSubHeadingListStart
 
     \resumeSubheading
-      {Lead Software Engineer, Full Stack}{February 2025 -- Present}
+      {AI Engineer (Data Ingestion \& RAG)}{August 2025 -- Present}
       {Tactable}{Toronto, ON}
       \resumeItemListStart
-        \resumeItem{Led technical planning sessions, translating client requirements into system design plans and actionable development initiatives}
-        \resumeItem{Designed and implemented CI/CD workflows using GitHub Actions, streamlining deployment and improving developer velocity}
-        \resumeItem{Managed and deployed Cloud Run instances and scheduled jobs on Google Cloud using Terraform, enhancing system reliability and automation}
-        \resumeItem{Built local testing scripts for Cloud Scheduler endpoints, significantly improving developer experience and debugging efficiency}
-        \resumeItem{Developed and maintained SOAP services conforming to Yardi Voyager 7S and MSI web service standards for property management and proof of insurance data integration}
-        \resumeItem{Managed a Hasura-integrated backend using Apollo Client and NestJS, as well as a custom PostgreSQL client for more advanced dynamic queries}
-        \resumeItem{Wrote and maintained unit and integration tests with Jest to support continuous delivery and maintain code quality}
+        \resumeItem{Owned the data ingestion pipeline for a Retrieval-Augmented Generation (RAG) system for a large enterprise client (NDA), driving delivery from proposal through implementation by partnering with stakeholders and product leadership.}
+        \resumeItem{Reduced end-to-end ingestion time from 15 minutes to as low as 20 seconds (\textbf{~97.8\% faster}; 45$\times$ speedup), improving iteration cycles and system freshness.}
+        \resumeItem{Built ingestion and parsing workflows using \textbf{Azure} and \textbf{Azure Document Intelligence}, with custom validation, quality checks, and automated reporting for downstream consumers.}
+        \resumeItem{Implemented observability best practices (structured logs/metrics, traceable runs, failure summaries) to improve reliability and speed up incident resolution.}
+        \resumeItem{Integrated supplemental \textbf{Hugging Face} models for domain-specific data transformations and normalization where deterministic rules were insufficient.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {Software Engineer (Compliance \& Integrations)}{January 2025 -- August 2025}
+      {Tactable}{Toronto, ON}
+      \resumeItemListStart
+        \resumeItem{Led system design and development for a compliance product, translating requirements into an implementation roadmap for the development team.}
+        \resumeItem{Built and maintained SOAP services (Yardi Voyager 7S, MSI) and managed a Hasura/NestJS backend with custom PostgreSQL queries.}
+        \resumeItem{Implemented CI/CD pipelines with GitHub Actions and provisioned Cloud Run services using Terraform on GCP.}
+        \resumeItem{Created local testing tools for Cloud Scheduler endpoints and maintained test coverage with Jest for reliable deployments.}
+        \resumeItem{Drove Python/Django performance work: reduced a critical endpoint from 16s to 0.5s (32$\times$ faster; -96.9\% latency).}
+        \resumeItem{Untangled and modularized a 3,000+ line Python ingestion script; added 100\% test coverage to stabilize onboarding and changes.}
+        \resumeItem{Built a custom Python-based MongoDB migration version control system enabling repeatable environment migrations and safer deployments.}
       \resumeItemListEnd
 
     \resumeSubheading
       {Lead Software Engineer, Full Stack}{June 2023 -- January 2025}
       {Switch Health}{Toronto, ON}
       \resumeItemListStart
-        \resumeItem{Built a pipeline that reduced new test type implementation time from two weeks to a single day}
-        \resumeItem{Held regular strategy meetings with the CEOs of Switch Health and BioTest to drive product enhancements}
-        \resumeItem{Optimized API queries, improving response times by up to 200\% in critical areas}
-        \resumeItem{Redesigned relational database structure while preserving data integrity for over 4 million users}
-        \resumeItem{Increased marketing site conversions by 20\% by implementing a sticky checkout button using Vanilla JS and Liquid}
-        \resumeItem{Mentored junior developers and conducted code reviews across the entire product lifecycle}
+        \resumeItem{Delivered major performance improvements on Azure cloud solution, including \textbf{200\% faster} API response times in critical areas.}
+        \resumeItem{Redesigned relational database structure while preserving data integrity for \textbf{4M+ users}.}
+        \resumeItem{Cut feature implementation time from \textbf{two weeks to one day} by building a reusable pipeline for new test types and internal tooling.}
+        \resumeItem{Enabled B2B integrations through a White Label platform, \textbf{doubling profitability}.}
+        \resumeItem{Increased conversion rates by \textbf{20\%} with targeted UX enhancements (Liquid/Vanilla JS) and iterative experimentation.}
+        \resumeItem{Mentored junior developers and conducted code reviews across the product lifecycle.}
       \resumeItemListEnd
 
     \resumeSubheading
-      {Software Engineer II, Full Stack}{January 2023 – June 2023}
+      {Software Engineer II, Full Stack}{January 2023 -- June 2023}
       {Switch Health}{Toronto, ON}
       \resumeItemListStart
-        \resumeItem{Transformed the platform into a White Label solution, doubling profitability by enabling B2B integrations}
-        \resumeItem{Optimized state management by migrating to Redux Toolkit, enhancing performance and maintainability while reducing bundle size by 60\% and development time by 25\%}
-        \resumeItem{Led a complete UI redesign, translating Figma designs into a fully implemented front-end experience based on Product team specifications}
-        \resumeItem{Refactored the front-end application into modular, reusable components, improving maintainability and accelerating development speed}
+        \resumeItem{Transformed the platform into a White Label solution, enabling B2B integrations and improving business scalability.}
+        \resumeItem{Migrated state management to Redux Toolkit, reducing bundle size by 60\% and development time by 25\% while improving maintainability.}
+        \resumeItem{Led a UI redesign from Figma to production, collaborating closely with Product and QA to ship quality releases.}
+        \resumeItem{Refactored the front-end application into modular, reusable components to accelerate delivery.}
       \resumeItemListEnd
 
     \resumeSubheading
-      {Software Engineer I, Full Stack}{April 2022 – December 2022}
+      {Software Engineer I, Full Stack}{April 2022 -- December 2022}
       {Switch Health}{Toronto, ON}
       \resumeItemListStart
-        \resumeItem{Restructured the project into a well-organized folder hierarchy, accelerating development by 20\%}
-        \resumeItem{Implemented best practices and eliminated technical debt, improving team collaboration and code maintainability}
-        \resumeItem{Worked closely with QA and Team Leads to ensure high-quality code delivery}
-        \resumeItem{Designed and developed RESTful APIs for complex test types, optimizing back-end integration for high-throughput data}
-        \resumeItem{Diagnosed and resolved critical software issues, enhancing system stability and performance}
-        \resumeItem{Participated in daily standups and weekly sprint planning to align development efforts}
+        \resumeItem{Restructured the project into a well-organized folder hierarchy, accelerating development by 20\%.}
+        \resumeItem{Implemented best practices and reduced technical debt, improving team collaboration and code maintainability.}
+        \resumeItem{Designed and developed RESTful APIs for complex test types, optimizing back-end integration for high-throughput data.}
+        \resumeItem{Diagnosed and resolved critical software issues, enhancing system stability and performance.}
       \resumeItemListEnd
 
   \resumeSubHeadingListEnd
 
-
 %-----------PROJECTS-----------
 \section{Projects}
   \resumeSubHeadingListStart
+
     \resumeProjectHeading
       {\textbf{Cloud Storage Solution} $|$ \emph{Family Albums}}{}
       \resumeItemListStart
-        \resumeItem{Built a highly scalable cloud storage platform with a React/TypeScript front-end and a Python/Tornado back-end, integrated with AWS EC2, S3, and PostgreSQL}
-        \resumeItem{Implemented Stripe for secure payment processing, leveraging SSL certificates and advanced encryption for transaction security}
-        \resumeItem{Automated operations using Slack webhooks and Docker, improving system monitoring and deployment efficiency}
+        \resumeItem{Built a scalable cloud storage platform with a React/TypeScript front-end and a Python/Tornado back-end, integrated with AWS EC2, S3, and PostgreSQL.}
+        \resumeItem{Implemented Stripe for secure payment processing, leveraging SSL certificates and encryption best practices.}
+        \resumeItem{Automated operations using Slack webhooks and Docker, improving monitoring and deployment workflows.}
       \resumeItemListEnd
 
     \resumeProjectHeading
       {\textbf{Content Management System for Realtors} $|$ \emph{Realty Host}}{}
       \resumeItemListStart
-        \resumeItem{Developed a CMS for Realtors, enabling tenant-specific UI customization while ensuring a unified, scalable back-end architecture}
-        \resumeItem{Integrated TRREB's Ampre API via OData, optimizing data ingestion and streamlining property search functionality}
-        \resumeItem{Implemented OAuth 2.0 and JWT authentication, ensuring secure and scalable user management}
+        \resumeItem{Developed a CMS for Realtors, enabling tenant-specific UI customization while maintaining a unified, scalable back-end architecture.}
+        \resumeItem{Integrated TRREB's Ampre API via OData, optimizing ingestion and streamlining property search.}
+        \resumeItem{Implemented OAuth 2.0 and JWT authentication for secure, scalable user management.}
       \resumeItemListEnd
 
     \resumeProjectHeading
       {\textbf{iOS Weather Application} $|$ \emph{Daily Forecast}}{}
       \resumeItemListStart
-        \resumeItem{Developed an iOS weather app using Swift and Core Data, processing real-time data from OpenWeather 3.0 API}
-        \resumeItem{Achieved 20K+ downloads with 1K+ active daily users, optimizing UI/UX for retention and engagement}
-        \resumeItem{Monetized the app via Google AdMob, implementing strategic ad placements to maximize revenue}
+        \resumeItem{Developed an iOS weather app using Swift and Core Data, processing real-time data from the OpenWeather API.}
+        \resumeItem{Achieved 20K+ downloads with 1K+ active daily users by iterating on UI/UX and retention features.}
+        \resumeItem{Monetized the app via Google AdMob with strategic ad placements.}
       \resumeItemListEnd
 
     \resumeProjectHeading
       {\textbf{Front-End Web Framework} $|$ \emph{NTML}}{}
       \resumeItemListStart
-        \resumeItem{Developed a lightweight, React-inspired front-end framework using Nim, enhancing HTML templating and component-based UI development}
-        \resumeItem{Optimized web development workflows with Nim Macros and Templates, improving maintainability and reducing boilerplate code}
-        \resumeItem{Designed the framework to be highly extensible, allowing seamless integration with existing web architectures}
+        \resumeItem{Developed a lightweight, React-inspired front-end framework using Nim for component-based UI development.}
+        \resumeItem{Optimized workflows with Nim Macros/Templates to reduce boilerplate and improve maintainability.}
+        \resumeItem{Designed the framework to be extensible and easy to integrate with existing web architectures.}
       \resumeItemListEnd
 
-    \resumeProjectHeading
-      {\textbf{Back-End Web Server} $|$ \emph{KeepItSimpleServer}}{}
-      \resumeItemListStart
-        \resumeItem{Developed a lightweight HTTP server framework supporting RESTful APIs, optimizing request handling and response performance}
-        \resumeItem{Implemented pre and post-request hooks (\texttt{prepare()} and \texttt{on\_finish()}) to streamline request lifecycle management}
-        \resumeItem{Enabled synchronous and asynchronous request handling via \texttt{HTTPServer} and \texttt{ThreadingHTTPServer}, improving scalability}
-      \resumeItemListEnd
-
-    \resumeProjectHeading
-      {\textbf{NFT Generation Platform} $|$ \emph{Wafter Mint}}{}
-      \resumeItemListStart
-        \resumeItem{Developed a decentralized platform for frictionless NFT minting with a contract that empowers content creators}
-        \resumeItem{Implemented a smart contract using Solidity (ERC-1155) with EIP-2981 royalty enforcement to support resale royalties}
-        \resumeItem{Built a Svelte-based frontend with Ethers.js and MetaMask integration for a streamlined Web3 user experience}
-        \resumeItem{Integrated decentralized storage solutions (ArDrive/IPFS) for metadata hosting, ensuring longevity and accessibility}
-      \resumeItemListEnd
   \resumeSubHeadingListEnd
-
 
 %-----------EDUCATION-----------
 \section{Education}
   \resumeSubHeadingListStart
     \resumeSubheading
-      {Seneca College}{North York, ON}{}{}
-      \resumeCourseEntry{IPC144 - Introduction to Programming Using C}{Fall 2020}
-      \resumeCourseEntry{OOP244 - Introduction to Object Oriented Programming Using C++}{Winter 2020}
-      \resumeCourseEntry{OOP344 - Object Oriented Programming II Using C++}{Spring 2021}
-      \resumeCourseEntry{JAC444 - Introduction to Java for C++ Programmers}{Summer 2021}
-      \resumeCourseEntry{MAP523 - Mobile App Development - iOS}{Fall 2021}
+      {Seneca College, Computer Programming}{North York, ON}{}{}
   \resumeSubHeadingListEnd
 
-
-%-------------------------------------------
 \end{document}
