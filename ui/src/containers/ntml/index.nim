@@ -86,7 +86,7 @@ when defined(js):
 
             NtmlDocsSideFooter:
               NtmlDocsMetaTag:
-                "v0.5.2"
+                "v0.5.7"
               NtmlDocsMetaTag:
                 "JS target"
 
