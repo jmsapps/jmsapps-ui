@@ -11,9 +11,8 @@ when defined(js):
 
 
   proc NavBar*(): Node =
-    let theme = useTheme()
     let router = router()
-    let colorMode = signal(theme.get() == "dark")
+    let colorMode = signal(isDark(activeTheme()))
     let logo = derived(colorMode, proc (x: bool): string = (if x: "light" else: "dark"))
 
     NavBarContainer:
@@ -42,8 +41,6 @@ when defined(js):
             onToggle = proc (next: bool) =
               if next:
                 setStyledTheme(DarkTheme)
-                theme.set("dark")
               else:
                 setStyledTheme(LightTheme)
-                theme.set("light")
           )

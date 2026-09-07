@@ -1,29 +1,23 @@
 when defined(js):
-  import std/strutils
+  import "ntml"
 
-  type ThemeHandle* = object
+  import "global/theme/index"
 
-  const themeKey* = "jmsapps-theme"
+  const themeKey = "jmsapps-theme"
 
-  proc jsLocalStorageGet(key: cstring): cstring {.importjs: "window.localStorage.getItem(#)".}
+  proc jsLocalStorageGet(key: cstring): cstring {.importjs: "(window.localStorage.getItem(#) || '')".}
   proc jsLocalStorageSet(key, value: cstring) {.importjs: "window.localStorage.setItem(#,#)".}
 
-  proc normalize(themeName: string): string =
-    let lowered = themeName.toLowerAscii()
-    case lowered
-    of "dark": "dark"
-    of "light": "light"
-    else: "light"
+  proc isDark*(theme: StyledTheme): bool =
+    not theme.isNil and theme.name == DarkTheme.name
 
-  proc useTheme*(): ThemeHandle = ThemeHandle()
+  proc storedTheme(): StyledTheme =
+    let stored = $jsLocalStorageGet(themeKey)
+    if stored == DarkTheme.name or stored == "dark": DarkTheme else: LightTheme
 
-  proc get*(handle: ThemeHandle): string =
-    let raw = jsLocalStorageGet(themeKey)
-    if raw.len == 0:
-      "light"
-    else:
-      normalize($raw)
+  proc useTheme*() =
+    setStyledTheme(storedTheme())
 
-  proc set*(handle: ThemeHandle; themeName: string) =
-    let normalized = normalize(themeName)
-    jsLocalStorageSet(themeKey, cstring(normalized))
+    discard styledThemeSignal().sub(proc (active: StyledTheme) =
+      if not active.isNil:
+        jsLocalStorageSet(themeKey, cstring(active.name)))

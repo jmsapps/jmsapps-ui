@@ -7,16 +7,14 @@ when defined(js):
 
   import "components/notFound/index"
 
-  import "global/theme/index"
   import "hooks/useTheme/index"
 
 
   proc App(): Node =
     let router: Router = router()
     let location: Signal[string] = router.location
-    let theme = useTheme()
 
-    setStyledTheme(if theme.get() == "dark": DarkTheme else: LightTheme)
+    useTheme()
 
     Routes(location):
       Route(path="/", component=Home)
